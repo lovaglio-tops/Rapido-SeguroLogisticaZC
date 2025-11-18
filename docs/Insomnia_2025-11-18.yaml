@@ -1,0 +1,263 @@
+type: collection.insomnia.rest/5.0
+name: RapidoSeguroLogisticaZC
+meta:
+  id: wrk_4a1602fc38e04382b059f07976e31ced
+  created: 1762874179844
+  modified: 1762874224046
+  description: ""
+collection:
+  - name: Clientes
+    meta:
+      id: fld_43908380146e4cd38abfd45f7dc4a40d
+      created: 1762874239244
+      modified: 1762874239244
+      sortKey: -1762874239244
+      description: ""
+    children:
+      - url: localhost:8081/clientes
+        name: Listar Clientes
+        meta:
+          id: req_293e80cf63334b529846acb2b0265b5c
+          created: 1762874242311
+          modified: 1762881708880
+          isPrivate: false
+          description: ""
+          sortKey: -1762874242311
+        method: GET
+        parameters:
+          - id: pair_790bd5e058cf4b9b891fe286866b85ad
+            name: idCliente
+            value: 81B3D087-8625-44FF-9DAA-AEAA7135FD62
+            description: ""
+            disabled: true
+        headers:
+          - name: User-Agent
+            value: insomnia/12.0.0
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: localhost:8081/clientes
+        name: Criar Cliente
+        meta:
+          id: req_30298f54fecf42f497183b73468ae3bd
+          created: 1762875187825
+          modified: 1763481037332
+          isPrivate: false
+          description: ""
+          sortKey: -1762875187825
+        method: POST
+        body:
+          mimeType: application/json
+          text: >2-
+             
+             {
+            		"nomeCliente": "luis",
+            		"cpfCliente": "66677788898",
+            		"telefone": "999591431",
+            		"email": "luis@gmail",
+            		"endereco": "Rua das Flores, 125, Jardim Primavera, São Paulo, SP, 04567-210"
+            	}
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/12.0.0
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: localhost:8081/clientes/81B3D087-8625-44FF-9DAA-AEAA7135FD62
+        name: Atualizar Cliente
+        meta:
+          id: req_7a819fa853f24989bd1c6bd0f3df7e98
+          created: 1762877175913
+          modified: 1763481044730
+          isPrivate: false
+          description: ""
+          sortKey: -1762877175913
+        method: PUT
+        body:
+          mimeType: application/json
+          text: >-
+            {
+                "nomeCliente": "Carlos Mendes",
+                "cpfCliente": "33344455566",
+                "telefone": "993218970",
+                "email": "carlos.mendes@outlook.com",
+                "endereco": "Rua Monte Alegre, 678, Alto da Glória, Goiânia, GO, 74810-540"
+              }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/12.0.0
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: localhost:8081/clientes/C18074EC-B94D-444C-B1E3-0B1ED495F74A
+        name: Deletar Cliente
+        meta:
+          id: req_947a76d9ef894b7ea0fb9ceef9b6f149
+          created: 1762879217896
+          modified: 1763481052496
+          isPrivate: false
+          description: ""
+          sortKey: -1762877176013
+        method: DELETE
+        headers:
+          - name: User-Agent
+            value: insomnia/12.0.0
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+  - name: Pedidos/Entregas
+    meta:
+      id: fld_683c8b46df4e44a3b95b4d7d4a12e44d
+      created: 1762881620248
+      modified: 1763481117771
+      sortKey: -1762881620248
+      description: ""
+    children:
+      - url: localhost:8081/pedidos
+        name: Listar Pedidos/Entregas
+        meta:
+          id: req_d941278b97f54e0c9b744a73c813a5bb
+          created: 1762881675928
+          modified: 1763481105109
+          isPrivate: false
+          description: ""
+          sortKey: -1762881675928
+        method: GET
+        body:
+          mimeType: application/json
+          text: ""
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/12.0.0
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: localhost:8081/pedidos
+        name: Criar Pedido/Entrega
+        meta:
+          id: req_eff6403487d343619512594dc5391962
+          created: 1762881680449
+          modified: 1763481092052
+          isPrivate: false
+          description: ""
+          sortKey: -1762881680449
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"idCliente":"3B873D43-3AB0-4A71-BD9A-EB8A3B85296E", 
+            	"dataPedido": "2025-11-18",
+            	"tipoEntrega": "Urgente",
+            	"distanciaKm": 100.00,
+            	"pesoCargaKG": 150.00,
+            	"valorKm": 6.50,
+            	"valorKg": 5.00
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/12.0.0
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: localhost:8081/pedidos/EC23F435-83B1-449D-89BB-709841F2EC81
+        name: Atualizar Pedido/Entrega
+        meta:
+          id: req_9e7472750c294b02a482c03c94d5907d
+          created: 1762885000506
+          modified: 1763481072090
+          isPrivate: false
+          description: ""
+          sortKey: -1762881680549
+        method: PUT
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"ValorKm": 7.00
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/12.0.0
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: localhost:8081/pedidos/0FA739EE-183C-4B30-BF16-CF6DC8656D29
+        name: Deletar Pedido/Entrega
+        meta:
+          id: req_a32335794dbc4711a45bddce9c2dc021
+          created: 1762887133346
+          modified: 1763481082236
+          isPrivate: false
+          description: ""
+          sortKey: -1762881680499
+        method: DELETE
+        headers:
+          - name: User-Agent
+            value: insomnia/12.0.0
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+cookieJar:
+  name: Default Jar
+  meta:
+    id: jar_8050deb60ec831d500357967846d4bf1c14a6b09
+    created: 1762874179866
+    modified: 1762874179866
+environments:
+  name: Base Environment
+  meta:
+    id: env_8050deb60ec831d500357967846d4bf1c14a6b09
+    created: 1762874179857
+    modified: 1762874179857
+    isPrivate: false
