@@ -97,11 +97,11 @@
 
 ### entregas 
 
-#### GET/entregas
+#### GET/pedidos
 -**Descriçao**: obtém uma lista de entregas
 -**Responde**: Array de entregas
 
-#### POST /entregas
+#### POST /pedidos
 -**Descrição**: Cria uma nova entrega
 -**Body**:
 ```
@@ -125,7 +125,7 @@
 }
 ```
 
-#### PUT/entregas/:idPedido
+#### PUT/pedidos/:idPedido
 -**Descriçao**: atualiza uma entrega
 -**Responde**:
 ```
@@ -134,7 +134,7 @@
 }
 ``` 
 
-#### DELETE/entregas/:idPedido
+#### DELETE/pedidos/:idPedido
 -**Descriçao**: deleta uma entrega
 -**Responde**:
 ```
