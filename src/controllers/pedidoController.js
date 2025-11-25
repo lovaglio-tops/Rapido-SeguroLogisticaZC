@@ -19,6 +19,7 @@ const pedidoController = {
 
             const pedidos = await pedidoModel.buscarTodos();
 
+
             res.status(200).json(pedidos);
 
         } catch (error) {
@@ -34,23 +35,27 @@ const pedidoController = {
 
             const { idCliente, dataPedido, tipoEntrega, distanciaKm, pesoCargaKG, valorKm, valorKg } = req.body;
 
+
             if (idCliente == undefined || dataPedido == undefined || tipoEntrega == undefined || distanciaKm == undefined || pesoCargaKG == undefined || valorKm == undefined || valorKg == undefined) {
                 return res.status(400).json({ error: 'campos obrigatorios não prenchidos!' });
             }
 
-            let valorDistancia = distanciaKm * valorKm
+            let valorDistancia = distanciaKm * valorKm;
 
-            let valorPeso = pesoCargaKG * valorKg
+            let valorPeso = pesoCargaKG * valorKg;
 
-            let valorFinal = valorDistancia + valorPeso
+            let valorFinal = valorDistancia + valorPeso;
 
-            let acrescimo = valorFinal * 0.2
+            let acrescimo = valorFinal * 0.2;
 
-            let desconto = valorFinal * 0.1
+            let desconto = valorFinal * 0.1;
 
-            let taxaExtra = 15
+            let taxaExtra = 15;
 
-            let statusEntrega = "calculado"
+            let statusEntrega = "calculado";
+
+
+
 
 
             if (pesoCargaKG > 50) {
@@ -62,6 +67,9 @@ const pedidoController = {
             if (valorFinal >= 500) {
                 valorFinal = valorFinal - desconto
             }
+
+
+
 
             // const datePedido = {
             //     idCliente,
@@ -118,8 +126,9 @@ const pedidoController = {
         try {
 
             const { idPedido } = req.params;
-            const { idCliente, dataPedido, tipoEntrega, DistânciaKm, PesoCargaKg, ValorKm, ValorKg } = req.body;
-
+            const { idCliente, dataPedido, tipoEntrega, distanciaKm, pesoCargaKg, valorKm, valorKg, valorDistancia, valorPeso, valorFinal, acrescimo, desconto, statusEntrega } = req.body;
+            //console.log(idCliente, dataPedido, tipoEntrega, distanciaKm, pesoCargaKg, valorKm, valorKg);
+            
             if (idPedido.length != 36) {
                 return res.status(400), json({ erro: "id do pedido inválido" });
             }
@@ -135,12 +144,53 @@ const pedidoController = {
             const idClienteAtualizado = idCliente ?? pedidoAtual.idCliente;
             const dataPedidoAtualizado = dataPedido ?? pedidoAtual.dataPedido;
             const tipoEntregaAtualizado = tipoEntrega ?? pedidoAtual.tipoEntrega;
-            const DistânciaKmAtualizado = DistânciaKm ?? pedidoAtual.DistânciaKm;
-            const PesoCargaKgAtualizado = PesoCargaKg ?? pedidoAtual.PesoCargaKg;
-            const ValorKmAtualizado = ValorKm ?? pedidoAtual.ValorKm;
-            const ValorKgAtualizado = ValorKg ?? pedidoAtual.ValorKg;
+            const distanciaKmAtualizado = distanciaKm ?? pedidoAtual.distanciaKm;
+            const pesoCargaKgAtualizado = pesoCargaKg ?? pedidoAtual.pesoCargaKg;
+            const valorKmAtualizado = valorKm ?? pedidoAtual.valorKm;
+            const valorKgAtualizado = valorKg ?? pedidoAtual.valorKg;
+        
+            let valorDistanciaAtualizado = distanciaKmAtualizado * valorKmAtualizado;
 
-            await pedidoModel.atualizarPedido(idPedido, idClienteAtualizado, dataPedidoAtualizado, tipoEntregaAtualizado, DistânciaKmAtualizado, PesoCargaKgAtualizado, ValorKmAtualizado, ValorKgAtualizado);
+            let valorPesoAtualizado = pesoCargaKgAtualizado * valorKgAtualizado;
+
+            let valorFinalAtualizado = valorDistanciaAtualizado + valorPesoAtualizado;
+
+            let acrescimoAtualizado = valorFinalAtualizado * 0.2;
+
+            let descontoAtualizado = valorFinalAtualizado * 0.1;
+
+            let taxaExtra = 15;
+
+            let statusEntregaAtualizado = statusEntrega ?? pedidoAtual.statusEntrega;
+
+            if (pesoCargaKgAtualizado > 50) {
+                valorFinalAtualizado = valorFinalAtualizado + taxaExtra;
+            }
+
+            if (tipoEntregaAtualizado === "Urgente" || tipoEntregaAtualizado === "urgente") {
+                valorFinalAtualizado = valorFinalAtualizado + acrescimoAtualizado;
+            }
+
+            if (valorFinalAtualizado >= 500) {
+                valorFinalAtualizado = valorFinalAtualizado - descontoAtualizado;
+            }
+
+            await pedidoModel.atualizarPedido(
+                idPedido, 
+                idClienteAtualizado, 
+                dataPedidoAtualizado, 
+                tipoEntregaAtualizado, 
+                distanciaKmAtualizado, 
+                pesoCargaKgAtualizado, 
+                valorKmAtualizado, 
+                valorKgAtualizado, 
+                valorDistanciaAtualizado, 
+                valorPesoAtualizado, 
+                acrescimoAtualizado, 
+                descontoAtualizado, 
+                taxaExtra, 
+                valorFinalAtualizado, 
+                statusEntregaAtualizado);
 
             res.status(200).json({ message: "Pedido atualizado com sucesso!" })
         } catch (error) {
