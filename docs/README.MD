@@ -1,13 +1,13 @@
 ## api reference 
 
 ### MODELO ENTIDADE RELACIONAMENTO
-![MODELO ENTIDADE RELACIONAMENTO](./Rápido%20&%20seguro%20logística.drawio.png)
+![MODELO ENTIDADE RELACIONAMENTO](./Rápido%20&%20seguro%20logística.drawio%20(1).png)
 
 ### clientes 
 
 #### GET/clientes
--**Descriçao**: obtém uma lista de clientes
--**Responde**: Array de clientes
+- **Descriçao**: obtém uma lista de clientes
+- **Responde**: Array de clientes
 
 #### POST /clientes
 -**Descrição**: Cria um novo cliente
@@ -29,14 +29,36 @@
 }
 ```
 
+```
+{
+    "erro": "id do Cliente invalido"
+} 
+```
+
 #### PUT/clientes/:idCliente
 -**Descriçao**: atualiza um cliente
 -**Responde**:
 ```
 {
+    "nomeCliente": "clienteExemplo",
+    "cpfCliente": "51891519808",
+    "telefone": "19998706798",
+    "email": "exemplo@gmail.com",
+    "endereco": "Avenida Central, 987, Centro, Belo Horizonte, MG, 30120-045"
+}
+```
+```
+{
     "message": "cliente atualizado com sucesso"
 }
 ``` 
+```
+{ "erro": "id do cliente inválido" }
+
+```
+```
+{ "erro": "CPF ou email já cadastrado" }
+```
 
 #### DELETE/clientes/:idCliente
 -**Descriçao**: deleta um cliente
@@ -100,6 +122,29 @@
 #### GET/pedidos
 -**Descriçao**: obtém uma lista de entregas
 -**Responde**: Array de entregas
+```
+[
+  {
+    "idPedido": "UUID",
+    "idCliente": "UUID",
+    "nomeCliente": "João Silva",
+    "dataPedido": "2025-11-11",
+    "tipoEntrega": "urgente",
+    "distanciaKm": 250,
+    "pesoCargaKg": 12,
+    "valorKm": 5.5,
+    "valorKg": 4,
+    "valorDistancia": 1375,
+    "valorPeso": 48,
+    "acrescimo": 284.6,
+    "desconto": 142.3,
+    "taxaExtra": 15,
+    "valorFinal": 1580.3,
+    "statusEntrega": "calculado"
+  }
+]
+
+```
 
 #### POST /pedidos
 -**Descrição**: Cria uma nova entrega
@@ -118,6 +163,10 @@
 
 
 ```
+
+```
+{ "message": "pedido e entrega cadastrado com sucesso" }
+```
 -**Response**:
 ```
 {
@@ -128,6 +177,17 @@
 #### PUT/pedidos/:idPedido
 -**Descriçao**: atualiza uma entrega
 -**Responde**:
+
+```
+{
+	"dataPedido": "2025-11-11",
+	"tipoEntrega": "urgente",
+	"distanciaKm": 250.00,
+	"pesoCargaKG": 12.00,
+	"valorKm": 5.50,
+	"valorKg": 4.00
+}
+```
 ```
 {
     "message": "entrega atualizada com sucesso"

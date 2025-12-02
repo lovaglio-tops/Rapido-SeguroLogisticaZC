@@ -1,8 +1,23 @@
 const { VarChar } = require("mssql");
 const { sql, getConnection } = require("../config/db");
 
+/**
+ * Objeto que representa o Model de Pedidos.
+ * Contém funções responsáveis por buscar, inserir, atualizar e deletar pedidos no banco de dados.
+ * 
+ * Sempre que começa com {chave} é um objeto JavaScript.
+ */
 const pedidoModel = {
 
+    /**
+     * Busca todos os pedidos cadastrados no banco de dados.
+     * Realiza INNER JOIN com Clientes e Entregas para retornar dados completos.
+     * 
+     * @async
+     * @function buscarTodos
+     * @returns {Promise<Array>} Retorna lista de pedidos completos.
+     * @throws Mostra no console e lança o erro caso a consulta falhe.
+     */
     buscarTodos: async () => {
         try {
 
@@ -26,8 +41,16 @@ const pedidoModel = {
         }
     },
 
-
-
+    /**
+     * Busca um único pedido pelo ID.
+     * Retorna também suas informações de entrega e cliente.
+     * 
+     * @async
+     * @function buscarUm
+     * @param {string} idPedido - ID do pedido (GUID).
+     * @returns {Promise<Array>} Retorna um array contendo o pedido encontrado.
+     * @throws Mostra no console e lança o erro caso falhe.
+     */
     buscarUm: async (idPedido) => {
         try {
 
@@ -51,11 +74,29 @@ const pedidoModel = {
         }
     },
 
-
-
-
-
-
+    /**
+     * Insere um novo pedido e sua respectiva entrega utilizando transação.
+     * O pedido é inserido primeiro → retorna idPedido → insere a entrega vinculada.
+     * 
+     * @async
+     * @function inserirPedido
+     * @param {string} idCliente - GUID do cliente
+     * @param {Date} dataPedido - Data do pedido
+     * @param {string} tipoEntrega - Tipo de entrega (Ex: "Rápida", "Normal")
+     * @param {number} distanciaKm - Distância em quilômetros
+     * @param {number} pesoCargaKg - Peso da carga em KG
+     * @param {number} valorKm - Valor por KM
+     * @param {number} valorKg - Valor por KG
+     * @param {number} valorDistancia - Valor calculado pela distância
+     * @param {number} valorPeso - Valor calculado pelo peso
+     * @param {number} acrescimo - Acréscimos extras
+     * @param {number} desconto - Descontos aplicados
+     * @param {number} taxaExtra - Taxas adicionais
+     * @param {number} valorFinal - Valor total final do pedido
+     * @param {string} statusEntrega - Status da entrega (ex: "Pendente")
+     * @returns {Promise<void>}
+     * @throws Realiza rollback e lança o erro caso a transação falhe.
+     */
     inserirPedido: async (
         idCliente,
         dataPedido,
@@ -120,6 +161,17 @@ const pedidoModel = {
         }
     },
 
+    /**
+     * Atualiza um pedido existente e sua respectiva entrega.
+     * Utiliza transação para garantir integridade dos dados.
+     * 
+     * @async
+     * @function atualizarPedido
+     * @param {string} idPedido - ID do pedido (GUID)
+     * @param {...any} dados - Todos os dados necessários para atualizar os registros
+     * @returns {Promise<void>}
+     * @throws Realiza rollback e lança erro caso aconteça falha na transação.
+     */
     atualizarPedido: async (
         idPedido,
         idCliente,
@@ -203,6 +255,16 @@ const pedidoModel = {
 
     },
 
+    /**
+     * Deleta um pedido e sua respectiva entrega.
+     * Efetua duas remoções dentro de uma transação.
+     * 
+     * @async
+     * @function deletarPedido
+     * @param {string} idPedido - ID do pedido que será removido
+     * @returns {Promise<void>}
+     * @throws Realiza rollback e lança o erro caso algo falhe.
+     */
     deletarPedido: async (idPedido) => {
 
 
